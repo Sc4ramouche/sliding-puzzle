@@ -1,38 +1,30 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: pink;
 }
 
-.App-link {
-  color: #61dafb;
+.block {
+  height: 100px;
+  width: 100px;
+  background-image: url(https://picsum.photos/200);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.background {
+  background-image: url(https://picsum.photos/300);
+}
+
+.piece {
+  width: 100px;
+  height: 100px;
+  background-color: aqua;
+  border: 1px solid red;
 }
