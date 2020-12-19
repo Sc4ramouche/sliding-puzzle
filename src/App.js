@@ -1,71 +1,26 @@
+import React, { useState } from 'react';
+
+import generateBoard from './lib/board';
+import shuffle2D from './lib/shuffle';
+
+import Board from './components/Board';
+
 import './App.css';
 
-const SIZE = 3;
+function Puzzle() {
+  const [boardSize, setBoardSize] = useState(4);
+  const [board, setBoard] = useState(shuffle2D(generateBoard(boardSize)));
 
-const board = [];
+  const handlePlayAgain = () => {
+    setBoard(shuffle2D(generateBoard(boardSize)));
+  };
 
-for (let i = 0; i < SIZE; i++) {
-  const row = [];
-  for (let j = 0; j < SIZE; j++) {
-    row.push({ x: i, y: j });
-  }
-  board.push(row);
-}
-console.log(board);
-
-function App() {
   return (
     <div className="App">
-      <div style={{ width: '300px', height: '300px', backgroundColor: 'blue' }}>
-        <div className="row">
-          <div
-            className="piece background"
-            style={{ backgroundPositionX: '0%' }}
-          ></div>
-          <div
-            className="piece background"
-            style={{ backgroundPositionX: '50%' }}
-          ></div>
-          <div
-            className="piece background"
-            style={{ backgroundPositionX: '100%' }}
-          ></div>
-        </div>
-
-        <div className="row">
-          <div
-            className="piece background"
-            style={{ backgroundPositionX: '0%', backgroundPositionY: '50%' }}
-          ></div>
-          <div
-            className="piece background"
-            style={{ backgroundPositionX: '50%', backgroundPositionY: '50%' }}
-          ></div>
-          <div
-            className="piece background"
-            style={{ backgroundPositionX: '100%', backgroundPositionY: '50%' }}
-          ></div>
-        </div>
-
-        <div className="row">
-          <div
-            className="piece background"
-            style={{ backgroundPositionX: '0%', backgroundPositionY: '100%' }}
-          ></div>
-          <div
-            className="piece background"
-            style={{ backgroundPositionX: '50%', backgroundPositionY: '100%' }}
-          ></div>
-          <div
-            className="piece background"
-            style={{ backgroundPositionX: '100%', backgroundPositionY: '100%' }}
-          ></div>
-        </div>
-
-        {/* <img src="https://picsum.photos/300" /> */}
-      </div>
+      <Board board={board} />
+      <button onClick={handlePlayAgain}>Play again</button>
     </div>
   );
 }
 
-export default App;
+export default Puzzle;
