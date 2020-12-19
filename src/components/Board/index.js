@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 import Piece from '../Piece';
+import generateImageURL from '../../lib/generateImageURL';
 import styles from './Board.module.css';
 
-export default function Board({ board }) {
+export default function Board({ board, size }) {
   const [boardSize, setBoardSize] = useState(0);
-  const [imageURL, setImageURL] = useState(0);
+  const [imageURL, setImageURL] = useState(null);
   const boardRef = useRef(null);
 
   useEffect(() => {
@@ -13,7 +14,7 @@ export default function Board({ board }) {
   }, []);
 
   useEffect(() => {
-    setImageURL(`https://picsum.photos/id/2/${boardSize}`);
+    setImageURL(generateImageURL(boardSize));
   }, [board, boardSize]);
 
   return (
@@ -21,7 +22,11 @@ export default function Board({ board }) {
       {board.map((row) => (
         <div className={styles.row}>
           {row.map((piece) => (
-            <Piece backgroundURL={imageURL} {...piece} />
+            <Piece
+              backgroundURL={imageURL}
+              size={boardSize / size}
+              {...piece}
+            />
           ))}
         </div>
       ))}

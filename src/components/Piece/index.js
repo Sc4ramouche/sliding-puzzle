@@ -1,26 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import styles from './Piece.module.css';
 
-export default function Piece({ n, x, y, gap, backgroundURL }) {
-  const [size, setSize] = useState(0);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    setSize(ref.current.clientWidth);
-  }, []);
-
+export default function Piece({ n, x, y, gap, backgroundURL, size }) {
   return (
     <div
-      ref={ref}
       className={`${styles.piece} ${styles.background}`}
       style={{
+        width: `${size}px`,
+        height: `${size}px`,
         backgroundImage: `url(${backgroundURL})`,
         backgroundPositionX: `${y * -size}px`,
         backgroundPositionY: `${x * -size}px`,
+        opacity: gap ? 0 : 1,
       }}
-    >
-      <span>{n}</span>
-      <span>{size}</span>
-    </div>
+    />
   );
 }
