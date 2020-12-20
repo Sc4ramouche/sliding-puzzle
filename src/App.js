@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 
 import generateBoard from './lib/board';
 import shuffle2D from './lib/shuffle';
 import generateImageURL from './lib/generateImageURL';
 import checkIfSolved from './lib/checkIfSolved';
+import { useWindowSize } from './lib/hooks';
 
 import Board from './components/Board';
 
@@ -18,9 +19,11 @@ function App() {
   const [movesCount, setMovesCount] = useState(0);
   const boardRef = useRef(null);
 
+  const [windowSize] = useWindowSize();
+
   useEffect(() => {
     setPixels(boardRef.current.clientWidth);
-  }, []);
+  }, [windowSize]);
 
   useEffect(() => {
     setImageURL(generateImageURL(pixels));
