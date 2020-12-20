@@ -1,30 +1,51 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useCallback, forwardRef } from 'react';
 
 import Piece from '../Piece';
-import generateImageURL from '../../lib/generateImageURL';
 import styles from './Board.module.css';
 
-export default function Board({ board, size }) {
-  const [boardSize, setBoardSize] = useState(0);
-  const [imageURL, setImageURL] = useState(null);
-  const boardRef = useRef(null);
+function Board({ board, size, imgURL, onPieceClick, isSolved }, ref) {
+  const generateHandler = useCallback(
+    (i, j) => {
+      // top
+      if (board[i - 1] && board[i - 1][j].gap) {
+        return () => onPieceClick(i, j, i - 1, j);
+      }
+      // right
+      if (board[i][j + 1] && board[i][j + 1].gap) {
+        return () => onPieceClick(i, j, i, j + 1);
+      }
+      // bottom
+      if (board[i + 1] && board[i + 1][j].gap) {
+        return () => onPieceClick(i, j, i + 1, j);
+      }
+      // left
+      if (board[i][j - 1] && board[i][j - 1].gap) {
+        return () => onPieceClick(i, j, i, j - 1);
+      }
 
-  useEffect(() => {
-    setBoardSize(boardRef.current.clientWidth);
-  }, []);
+      return () => {
+        console.log('disabled');
+      };
+    },
+    [board, onPieceClick]
+  );
 
-  useEffect(() => {
-    setImageURL(generateImageURL(boardSize));
-  }, [board, boardSize]);
+  const boardWidth = ref.current?.clientWidth;
 
   return (
-    <div ref={boardRef} className={styles.board}>
-      {board.map((row) => (
-        <div className={styles.row}>
-          {row.map((piece) => (
+    <div ref={ref} className={styles.board}>
+      {board.map((row, i) => (
+        <div
+          className={styles.row}
+          key={row.reduce((acc, item) => (acc += item.id), '')}
+        >
+          {row.map((piece, j) => (
             <Piece
-              backgroundURL={imageURL}
-              size={boardSize / size}
+              key={piece.id}
+              onClick={generateHandler(i, j)}
+              backgroundURL={imgURL}
+              size={boardWidth / size}
+              isSolved={isSolved}
               {...piece}
             />
           ))}
@@ -33,3 +54,5 @@ export default function Board({ board, size }) {
     </div>
   );
 }
+
+export default forwardRef(Board);
