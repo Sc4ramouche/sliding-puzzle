@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Piece.module.css';
 
-export default function Piece({
+export function Piece({
   n,
   x,
   y,
@@ -11,21 +11,22 @@ export default function Piece({
   onClick,
   isSolved,
 }) {
-  const isShown = isSolved ? 1 : gap ? 0 : 1;
+  const isShown = isSolved || !gap;
+
   return (
     <div
-      onClick={onClick}
-      className={`${styles.piece} ${styles.background}`}
+      onClick={isSolved ? null : onClick}
+      className={styles.piece}
       style={{
         width: `${size}px`,
         height: `${size}px`,
         backgroundImage: `url(${backgroundURL})`,
         backgroundPositionX: `${y * -size}px`,
         backgroundPositionY: `${x * -size}px`,
-        opacity: isShown,
+        opacity: isShown ? 1 : 0,
       }}
     >
-      {isSolved ? null : <span>{n}</span>}
+      {isSolved ? null : <span className={styles.label}>{n}</span>}
     </div>
   );
 }

@@ -1,24 +1,21 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-import generateBoard from './lib/board';
-import shuffle2D from './lib/shuffle';
-import generateImageURL from './lib/generateImageURL';
-import checkIfSolved from './lib/checkIfSolved';
 import { useWindowSize } from './lib/hooks';
+import { generateBoard, checkIfSolved } from './lib/game';
+import { shuffle2D, generateImageURL } from './lib/util';
 
-import Board from './components/Board';
+import { Board } from './components/';
 
 import './App.css';
 
 function App() {
-  const [boardSize, setBoardSize] = useState(2);
+  const [boardSize, setBoardSize] = useState(3);
   const [imageURL, setImageURL] = useState(null);
   const [board, setBoard] = useState(shuffle2D(generateBoard(boardSize)));
   const [pixels, setPixels] = useState(0);
   const [isSolved, setIsSolved] = useState(false);
   const [movesCount, setMovesCount] = useState(0);
   const boardRef = useRef(null);
-
   const [windowSize] = useWindowSize();
 
   useEffect(() => {
@@ -69,15 +66,26 @@ function App() {
         onPieceClick={swapPieces}
         isSolved={isSolved}
       />
-      <button onClick={handlePlayAgain}>Play again</button>
-      <input
-        type="number"
-        value={boardSize}
-        onChange={handleBoardSizeChange}
-        min="3"
-        max="9"
-      ></input>
-      <p>{`moves count: ${movesCount}`}</p>
+
+      <div className="controls">
+        <p>{`Moves: ${movesCount}`}</p>
+
+        <div className="board-size">
+          <span className="board-size__label">Board size:</span>
+          <input
+            className="board-size__input"
+            type="number"
+            value={boardSize}
+            onChange={handleBoardSizeChange}
+            min="3"
+            max="9"
+          ></input>
+        </div>
+
+        <button onClick={handlePlayAgain} className="play-again">
+          Play again
+        </button>
+      </div>
     </div>
   );
 }

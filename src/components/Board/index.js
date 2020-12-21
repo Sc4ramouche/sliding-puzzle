@@ -1,9 +1,9 @@
 import React, { useCallback, forwardRef } from 'react';
 
-import Piece from '../Piece';
+import { Piece } from '../Piece';
 import styles from './Board.module.css';
 
-function Board({ board, size, imgURL, onPieceClick, isSolved }, ref) {
+function BoardComponent({ board, size, imgURL, onPieceClick, isSolved }, ref) {
   const generateHandler = useCallback(
     (i, j) => {
       // top
@@ -23,9 +23,7 @@ function Board({ board, size, imgURL, onPieceClick, isSolved }, ref) {
         return () => onPieceClick(i, j, i, j - 1);
       }
 
-      return () => {
-        console.log('disabled');
-      };
+      return () => {};
     },
     [board, onPieceClick]
   );
@@ -55,4 +53,4 @@ function Board({ board, size, imgURL, onPieceClick, isSolved }, ref) {
   );
 }
 
-export default forwardRef(Board);
+export const Board = forwardRef(BoardComponent);

@@ -1,6 +1,6 @@
-import Piece from './piece';
+import { Piece } from './piece';
 
-export default function generateBoard(size) {
+export function generateBoard(size) {
   const board = new Array(size);
   let n = 1;
 

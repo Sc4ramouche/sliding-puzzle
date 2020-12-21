@@ -16,7 +16,7 @@ function shuffle(array) {
   return array;
 }
 
-export default function shuffle2D(array) {
+export function shuffle2D(array) {
   const size = array.length;
   const shuffled = shuffle(array.flat());
 
