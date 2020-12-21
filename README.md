@@ -14,9 +14,9 @@
 
 ## Possible improvements
 
-- image being re-fetched while dynamically resizing the window on small screens. This is unlikely to happen to users, but still might cause frustration (anger, even!) if user needs to resize browser window mid-game.
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [picsum](https://picsum.photos/) sometimes fails to deliver the image, thus forcing user to reload the page.
+- image being re-fetched while dynamically resizing the window on small screens. This is unlikely to happen to users, but still might cause frustration if user needs to resize browser window mid-game.
+- this app could be far more impressive with animations. Consider adding [react-spring](https://www.react-spring.io/) to the mix.
 
 ## Available Scripts
 
